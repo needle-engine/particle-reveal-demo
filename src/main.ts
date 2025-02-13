@@ -12,19 +12,29 @@ const quotesAboutHealth = [
 ]
 
 onStart(() => {
+    const calendarElement = document.querySelector(".calendar");
+    calendarElement?.classList.remove("hidden")
     const quoteElement = document.querySelector("#quote");
     if (quoteElement) {
         let quote = getParam("quote");
         if (typeof quote != "string") quote = quotesAboutHealth[Math.floor(Math.random() * quotesAboutHealth.length)];
         quoteElement.textContent = quote;
         setParamWithoutReload("quote", quote);
-        fetch("https://api.quotable.io/quotes/random")
-            .then(res => {
-                console.log(res.status)
-            })
-            .catch(err => {
-                console.debug(err)
-            })
+    }
 
+    const shareButton = document.querySelector<HTMLButtonElement>("button#share");
+    if (shareButton) {
+        shareButton.addEventListener("click", () => {
+            if (navigator.share) {
+                navigator.share({
+                    title: "Share Link",
+                    url: window.location.href
+                }).catch(() => {
+                    // ignore cancel
+                });
+            } else {
+                console.error("Web Share API not supported");
+            }
+        })
     }
 })

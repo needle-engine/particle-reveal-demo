@@ -24,6 +24,7 @@
       font-family: "Handlee", serif;
       font-weight: 400;
       font-style: normal;
+      font-size: 16px;
     }
 
     needle-engine {
@@ -44,14 +45,39 @@
       justify-content: center;
       align-items: center;
 
-      padding: 30%;
+      padding: 5%;
 
       color: black;
+
       background: rgb(255, 255, 255);
-      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 237, 128, 1) 19%, rgba(205, 251, 255, 1) 44%, rgba(2, 0, 36, 1) 100%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 237, 128, 1) 5%, rgba(165, 254, 177, 1) 40%, rgba(157, 255, 181, 1) 49%, rgba(99, 1, 144, 1) 100%);
+
+      &.hidden {
+        display: none;
+      }
 
       & h1 {
-        font-size: 5vh;
+        font-size: 4rem;
+        line-height: .9em;
+        text-align: center;
+        max-width: 20ch;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 100);
+      }
+    }
+
+    .share {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+
+      & #share {
+        padding: .5rem 1rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        background: white;
+        color: black;
+        font-size: 1rem;
+        cursor: pointer;
       }
     }
   </style>
@@ -62,11 +88,15 @@
   <script type="module" src="./src/main.ts"></script>
 
 
-  <div class="calendar">
+  <div class="calendar hidden">
     <h1 id="quote" class="trn"> Today is a day </h1>
   </div>
 
   <needle-engine></needle-engine>
+
+  <div class="share">
+    <button id="share" class="trn">Share</button>
+  </div>
 </body>
 
 </html>
