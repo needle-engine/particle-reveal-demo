@@ -9,16 +9,16 @@
   "dependencies": {
 	  "@needle-tools/engine": "^4.1.0",
 	  "three": "npm:@needle-tools/three@^0.169.4",
-	  "@needle-tools/samples-scripts": "file:./../needle-engine-dev/modules/needle-engine-samples/package/Runtime/_Shared/SampleScripts~"
+	  "vite-plugin-mkcert": "^1.17.6"
 	},
   "devDependencies": {
-	  "@needle-tools/helper": "1.11.2",
-	  "@types/three": "0.169.0",
-	  "@vitejs/plugin-basic-ssl": "^1.0.1",
-	  "typescript": "^5.0.4",
-	  "vite": "<= 4.3.9",
-	  "vite-plugin-compression": "^0.5.1"
-	},
+    "@needle-tools/helper": "1.11.2",
+    "@types/three": "0.169.0",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "typescript": "^5.0.4",
+    "vite": "5",
+    "vite-plugin-compression": "^0.5.1"
+  },
   "author": {
     "name": "Needle Tools",
     "email": "hi@needle.tools",

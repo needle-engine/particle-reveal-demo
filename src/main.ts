@@ -1,6 +1,5 @@
-
 import { getParam, onStart, setParamWithoutReload } from "@needle-tools/engine";
-
+import "./scripts/CustomParticleBehaviour.js";
 
 const quotesAboutHealth = [
     "The greatest wealth is health.",
@@ -20,6 +19,9 @@ onStart(() => {
         if (typeof quote != "string") quote = quotesAboutHealth[Math.floor(Math.random() * quotesAboutHealth.length)];
         quoteElement.textContent = quote;
         setParamWithoutReload("quote", quote);
+        // fetch("https://api.quotable.io").then(res => {
+        //     console.log(res.status)
+        // })
     }
 
     const shareButton = document.querySelector<HTMLButtonElement>("button#share");
@@ -37,4 +39,6 @@ onStart(() => {
             }
         })
     }
+
+
 })

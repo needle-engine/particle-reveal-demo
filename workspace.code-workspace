@@ -6,11 +6,6 @@
     {
       "path": "./node_modules/@needle-tools/engine",
       "name": "🌵 Needle Engine"
-    },
-    {
-      "name": "@needle-tools/samples-scripts",
-      "path": "node_modules/@needle-tools/samples-scripts",
-      "@needle:managed": true
     }
   ],
   "settings": {
@@ -20,7 +15,6 @@
       "package-lock.json": true,
       "**/.git": true,
       "**/.DS_Store": true,
-      "**/node_modules": true,
       "**/*.meta": true
     }
   }
