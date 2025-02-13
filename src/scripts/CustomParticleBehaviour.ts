@@ -66,7 +66,7 @@ class RevealBehaviour extends ParticleSystemBaseBehaviour {
             const distance = toParticleVector.length();
 
             // if the particle is close enough
-            if (distance < .4) {
+            if (distance < .5) {
                 // if yes then move the particle away from the cursor
                 // we do this by saving the velocity in the particle and apply if every frame
                 const tx01 = cursorDelta.x / this.context.domWidth;

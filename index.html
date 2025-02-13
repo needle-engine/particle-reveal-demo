@@ -11,7 +11,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 
     html {
       height: -webkit-fill-available;
@@ -21,10 +22,14 @@
       padding: 0;
       margin: 0;
 
-      font-family: "Handlee", serif;
+      font-size: 16px;
+
+      font-family: "Noto Sans", serif;
+      font-optical-sizing: auto;
       font-weight: 400;
       font-style: normal;
-      font-size: 16px;
+      font-variation-settings:
+        "wdth" 100;
     }
 
     needle-engine {
@@ -49,8 +54,8 @@
 
       color: black;
 
-      background: rgb(250,228,255);
-      background: radial-gradient(circle, rgba(250,228,255,1) 0%, rgba(244,171,255,1) 24%, rgba(165,254,177,1) 59%, rgba(107,121,209,1) 81%, rgba(57,171,166,1) 100%);
+      background: rgb(250, 228, 255);
+      background: radial-gradient(circle, rgba(250, 228, 255, 1) 0%, rgba(244, 171, 255, 1) 24%, rgba(165, 254, 177, 1) 59%, rgba(107, 121, 209, 1) 81%, rgba(57, 171, 166, 1) 100%);
 
       background-size: 400% 400%;
       animation: background_gradient 29s ease infinite;
@@ -61,10 +66,25 @@
 
       & h1 {
         font-size: 4rem;
-        line-height: .9em;
+        line-height: calc(1.0em + 2px);
         text-align: center;
         max-width: 20ch;
         text-shadow: 0 0 5px rgba(255, 255, 255, 100);
+        animation: float_up_down 10s ease infinite;
+      }
+    }
+
+    @keyframes float_up_down {
+      0% {
+        transform: translateY(-2rem) skewY(-5deg);
+      }
+
+      50% {
+        transform: translateY(2rem) skewY(5deg);
+      }
+
+      100% {
+        transform: translateY(-2rem) skewY(-5deg);
       }
     }
 
@@ -97,6 +117,7 @@
         font-size: 1rem;
         cursor: pointer;
         transition: all .2s;
+
         &:hover {
           font-size: 1.2em;
         }
