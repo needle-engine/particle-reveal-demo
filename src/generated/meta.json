@@ -1,0 +1,16 @@
+{
+  "needleEditor": null,
+  "meta": null,
+  "absolutePath": "https://localhost:3000",
+  "sceneName": "Particle Custom Behaviour",
+  "deployOnly": false,
+  "generator": "Unity 2021.3.33f1, Needle Engine Integration @4.1.0",
+  "gzip": true,
+  "allowHotReload": false,
+  "developmentBuild": false,
+  "license": {
+    "team": "jg3twr0f7zgf"
+  },
+  "facebookInstantGames": null,
+  "useRapier": true
+}

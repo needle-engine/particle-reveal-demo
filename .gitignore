@@ -7,4 +7,3 @@ include/three-mesh-ui-assets/
 include/fonts/
 build.log
 dist
-src/generated/
