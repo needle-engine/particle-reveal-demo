@@ -1,7 +1,7 @@
 {
   "needleEditor": null,
   "meta": null,
-  "absolutePath": "https://localhost:3000",
+  "absolutePath": null,
   "sceneName": "Particle Custom Behaviour",
   "deployOnly": false,
   "generator": "Unity 2021.3.33f1, Needle Engine Integration @4.1.0",
