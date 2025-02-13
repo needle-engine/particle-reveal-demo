@@ -4,12 +4,18 @@
       "path": "."
     },
     {
-      "path": "./node_modules/@needle-tools/engine"
+      "path": "./node_modules/@needle-tools/engine",
+      "name": "🌵 Needle Engine"
+    },
+    {
+      "name": "@needle-tools/samples-scripts",
+      "path": "node_modules/@needle-tools/samples-scripts",
+      "@needle:managed": true
     }
   ],
   "settings": {
     "compile-hero.disable-compile-files-on-did-save-code": true,
-    "window.title": "Needle Engine Vite Template",
+    "window.title": "particle-reveal",
     "files.exclude": {
       "package-lock.json": true,
       "**/.git": true,

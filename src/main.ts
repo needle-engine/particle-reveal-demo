@@ -1,111 +1,30 @@
-import { Behaviour, showBalloonMessage, DragControls, onStart, DragMode, PointerEventData, serializable, RemoteSkybox, WebXR, addComponent, ContactShadows, SceneSwitcher, findObjectOfType, OrbitControls, PostProcessingManager, ToneMappingEffect, BloomEffect, SharpeningEffect, ScreenSpaceAmbientOcclusionN8, ObjectUtils } from "@needle-tools/engine";
-import * as THREE from "three";
 
-// Simple example component that does nothing but rotate an object.
-export class Rotate extends Behaviour {
+import { getParam, onStart, setParamWithoutReload } from "@needle-tools/engine";
 
-    @serializable()
-    speed: number = .5;
 
-    start() {
-        console.log(this);
-        showBalloonMessage("Hello Cube");
+const quotesAboutHealth = [
+    "The greatest wealth is health.",
+    "It is health that is real wealth and not pieces of gold and silver.",
+    "Health is the crown on the well person’s head that only the ill person can see.",
+    "To keep the body in good health is a duty… otherwise we shall not be able to keep our mind strong and clear.",
+    "The first wealth is health.",
+    "Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship."
+]
+
+onStart(() => {
+    const quoteElement = document.querySelector("#quote");
+    if (quoteElement) {
+        let quote = getParam("quote");
+        if (typeof quote != "string") quote = quotesAboutHealth[Math.floor(Math.random() * quotesAboutHealth.length)];
+        quoteElement.textContent = quote;
+        setParamWithoutReload("quote", quote);
+        fetch("https://api.quotable.io/quotes/random")
+            .then(res => {
+                console.log(res.status)
+            })
+            .catch(err => {
+                console.debug(err)
+            })
+
     }
-    update(): void {
-        this.gameObject.rotateY(this.context.time.deltaTime * this.speed);
-    }
-    onPointerEnter(_args: PointerEventData) {
-        showBalloonMessage("Hovering Cube!");
-        this.speed *= 4;
-    }
-    onPointerExit(_args: PointerEventData) {
-        showBalloonMessage("Bye Cube!");
-        this.speed *= .25;
-    }
-    onPointerClick(_args: PointerEventData) {
-        this.gameObject.scale.multiplyScalar(1.1);
-    }
-}
-
-// onStart is one way to hook into the needle engine event loop (this is called once at the beginning of the update loop)
-// you can also directly hook into update events using onUpdate
-// or use NeedleEngine.addContextCreatedCallback
-onStart(context =>{
-    const scene = context.scene;
-
-    // you can use regular threejs syntax to create objects
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 ); 
-    const material = new THREE.MeshStandardMaterial( { color: 0xaaaaaa } ); 
-    const cube = new THREE.Mesh(geometry, material); 
-    cube.position.x = 1;
-    cube.position.y += .5;
-    scene.add(cube);
-    // use `addComponent` to add components to objects
-    addComponent(cube, new Rotate(), { 
-        // You can initialize component properties inline:
-        // speed: 5
-    });
-
-    // DragControls is a builtin Needle Engine componen to allow users to drag an object.
-    // This works on desktop as well as AR or VR
-    addComponent(cube, DragControls, {
-        showGizmo: false,
-        dragMode: DragMode.XZPlane,
-    });
-
-    // add WebXR support
-    addComponent(scene, WebXR, {
-        createARButton: true,
-        createQRCode: true,
-        createVRButton: true,
-        createSendToQuestButton: true,
-    });
-
-    // We can modify the background or scene lighting easily using a RemoteSkybox
-    // We can also set the skybox directly on the scene if we load it manually
-    // Or just assign a skybox-image or environment-image attribute on <needle-engine>
-    // See https://engine.needle.tools/docs/reference/needle-engine-attributes.html 
-    addComponent(scene, RemoteSkybox, {
-        // You can assign an URL here or one of the built-in keywords
-        url: "studio",
-        environment: true,
-        background: false,
-    });
-    // Make the background blurry
-    if(context.mainCameraComponent)
-        context.mainCameraComponent.backgroundBlurriness = 1;
-     // Let's also add a Contact Shadow component
-     ContactShadows.auto();
-
-    // To load or switch additional content it's easy to use a SceneSwitcher 
-    const sceneSwitcher = addComponent(scene, SceneSwitcher, {
-        autoLoadFirstScene: false
-    });
-    sceneSwitcher.addScene("https://engine.needle.tools/demos/gltf-progressive/assets/cyberpunk/model.glb")
-
-    sceneSwitcher.select(0).then(_success => {
-        console.log("Loaded Scene", sceneSwitcher.currentlyLoadedScene);
-        sceneSwitcher.currentlyLoadedScene?.asset.scale.multiplyScalar(20);
-        sceneSwitcher.currentlyLoadedScene?.asset.rotateY(Math.PI * -.5);
-
-        const orbitControls = findObjectOfType(OrbitControls);
-        if(orbitControls) orbitControls.fitCamera(scene.children, {
-            immediate: false
-        });
-        ContactShadows.auto();    
-    });
-
-
-    // To add postprocessing simple add a PostProcessingManager component to your scene
-    const post = addComponent(context.scene, PostProcessingManager);
-    post.addEffect(new SharpeningEffect());
-    const bloom = post.addEffect(new BloomEffect());
-    bloom.scatter.value = .8;
-
-    const sphere = ObjectUtils.createPrimitive("Sphere", { 
-        material: new THREE.MeshStandardMaterial({emissive: 0xffffff, emissiveIntensity: 5})
-    });
-    sphere.position.y = 2;
-    sphere.scale.multiplyScalar(0.1);
-    scene.add(sphere);
 })
