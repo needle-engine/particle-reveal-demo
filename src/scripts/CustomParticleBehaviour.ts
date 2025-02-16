@@ -32,7 +32,7 @@ class RevealBehaviour extends ParticleSystemBaseBehaviour {
         // position the particle randomly in screenspace to fill up the screen
         // for this we want to have prewarm enabled in the particlesystem to work best
         const randomScreenPos = new Vector3(Mathf.random(-1.1, 1.1), Mathf.random(-1.1, 1.1), .99 + Math.random() * .001);
-        const wp = randomScreenPos.unproject(this.context.mainCamera);
+        const wp = randomScreenPos.clone().unproject(this.context.mainCamera);
         _particle.position.set(wp.x, wp.y, wp.z);
         _particle.size.multiplyScalar(Mathf.random(0.8, 1.2));
         _particle[$velocity] ??= new Vector2();
@@ -43,6 +43,9 @@ class RevealBehaviour extends ParticleSystemBaseBehaviour {
         _particle[$color] ??= new Vector3();
         const v = Mathf.random(0, .1);
         _particle[$color].set(v, v, v);
+        // rainbow from randomScreenPos
+        const color = new Vector3(randomScreenPos.x, randomScreenPos.y, randomScreenPos.z);
+        _particle[$color].set(color.x, color.y, color.z);
 
         const r = Mathf.random(.9, 1);
         _particle[$colorReveal].set(r, Mathf.random(.5, .9), r);
